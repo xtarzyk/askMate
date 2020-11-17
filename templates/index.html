@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ASK MATE</title>
+    <title>Add Question</title>
+    <h1>What you want to ask?</h1>
 </head>
 <body>
+<br>
+            <form action="/add-question" method="post">
+
+            <label for="note-input">Your question:</label>
+            <textarea id="note-input" name="note" rows="4" cols="60"></textarea>
+
+            <button type="submit">Save question!</button>
+        </form>
 
 </body>
 </html>
