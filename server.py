@@ -18,9 +18,7 @@ def add_question():
     if request.method == 'POST':
         question['note'] = request.form['note']
 
-        return redirect('/question/<question_id>')
-    return render_template('index.html')
-
+    return render_template("index.html"), redirect('/question/<question_id>')
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
