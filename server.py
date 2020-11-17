@@ -16,12 +16,11 @@ def hello():
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
-        id = id_maker(question_dict)
+        id_question = id_maker(question_dict)
         user_question = request.form['note']
-        new = {id: user_question}
+        new = {id_question: user_question}
         question_dict.update(new)
-
-        return redirect('/question/<question_id>')
+        return redirect('/question/%d' % id_question)
     return render_template('index.html')
 
 
