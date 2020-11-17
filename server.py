@@ -6,7 +6,7 @@ import string
 
 app = Flask(__name__)
 saved_data = {}
-question = {}
+question_dict = {}
 
 
 @app.route("/")
@@ -17,19 +17,22 @@ def hello():
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
-        question['note'] = request.form['note']
-
-        id = id_maker()
-        return redirect('/question/<question_id>')
+        id_question = id_maker(question_dict)
+        user_question = request.form['note']
+        new = {id_question: user_question}
+        question_dict.update(new)
+        return redirect('/question/%d' % id_question)
     return render_template('index.html')
+
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
     question = get_question_by_id(question_id)
-    if question == None:
+    if question is None:
         return abort(404)
     answers = get_answers_by_question_id(question_id)
     return render_template('question.html', question=question, answers=answers)
+
 
 @app.template_filter('date')
 def date(convert_time):
