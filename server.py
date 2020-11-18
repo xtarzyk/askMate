@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, abort
-from util import get_question_by_id, get_answers_by_question_id, id_maker
+from util import get_question_by_id, get_answers_by_question_id, id_maker, get_all_questions
 from datetime import datetime
 import random
 import string
@@ -38,6 +38,15 @@ def date(convert_time):
     time = datetime.fromtimestamp(int(convert_time))
 
     return time.strftime('%d.%m.%Y')
+
+@app.route("/list")
+def list_questions():
+    questions = get_all_questions()
+    for question in questions:
+        if question[0] != "id":
+            question[1] = date(question[1])
+
+    return render_template('list.html', questions=questions)
 
 
 
