@@ -36,7 +36,7 @@ def id_maker(dict_id):
     else:
         max_key = max(dict_id, key=dict_id.get)
         ide = max_key + 1
-    return ide
+    return int(ide)
 
 def get_all_questions():
     data_file = open_file('sample_data/movie_questions.csv')

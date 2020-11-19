@@ -1,9 +1,8 @@
 from flask import Flask, render_template, redirect, request, abort
 from util import get_question_by_id, get_answers_by_question_id, id_maker, get_all_questions
 from datetime import datetime
-import random
-import string
 from data_manager import read_csv_file
+
 
 app = Flask(__name__)
 question_dict = {}
@@ -17,10 +16,11 @@ def hello():
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
-        id_question = id_maker(question_dict)
+        csv_read = read_csv_file('question.csv')
+        id_question = id_maker(csv_read)
         user_question = request.form['note']
-        new = {id_question: user_question}
-        question_dict.update(new)
+        new_question = id_question: {'message' : user_question}
+
         return redirect('/question/%d' % id_question)
     return render_template('index.html')
 
@@ -39,6 +39,7 @@ def date(convert_time):
     time = datetime.fromtimestamp(int(convert_time))
 
     return time.strftime('%d.%m.%Y')
+
 
 @app.route("/list")
 def list_questions():
