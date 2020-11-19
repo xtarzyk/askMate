@@ -16,11 +16,14 @@ def read_csv_file(filename):
 csv_columns = ["id", "submission_time", "view_number", "vote_number", "title", "message"]
 
 
-def write_csv_file(filename, dictionary):
-    with open(filename, 'w') as csvfile:
+def write_csv_file(filename, dictionaries, write_method="w"):
+    """
+    params: nazwa pliku, lista słowników, opcjonalnie metoda zapisu: w/a
+    returns: nothing
+    potwierdzam, działa <3
+    """
+    with open(filename, write_method) as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
         writer.writeheader()
-        for data in dictionary:
+        for data in dictionaries:
             writer.writerow(data)
-
-# powyższe do sprawdzenia czy zadziała

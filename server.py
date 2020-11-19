@@ -1,12 +1,11 @@
 from flask import Flask, render_template, redirect, request, abort
 from util import get_question_by_id, get_answers_by_question_id, id_maker, get_all_questions
 from datetime import datetime
-from data_manager import read_csv_file
+from data_manager import read_csv_file, csv_columns, write_csv_file
 
 
 app = Flask(__name__)
-question_dict = {}
-
+DATAFILE = './sample_data/question.csv'
 
 @app.route("/")
 def hello():
@@ -16,11 +15,15 @@ def hello():
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
-        csv_read = read_csv_file('question.csv')
-        id_question = id_maker(csv_read)
+        question_dict = read_csv_file(DATAFILE)
+        id_question = id_maker(question_dict)
         user_question = request.form['note']
-        new_question = id_question: {'message' : user_question}
-
+        new = {}
+        for key in csv_columns:
+            new[key] = ''
+        new["id"] = str(id_question)
+        new['message'] = user_question
+        write_csv_file(DATAFILE, [new], write_method="a")
         return redirect('/question/%d' % id_question)
     return render_template('index.html')
 
