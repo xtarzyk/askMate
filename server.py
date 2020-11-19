@@ -5,11 +5,17 @@ from data_manager import read_csv_file, csv_columns, write_csv_file
 
 
 app = Flask(__name__)
-DATAFILE = './sample_data/question.csv'
+DATAFILE = './sample_data/movie_questions.csv'
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+
+@app.route("/list")
+def list_questions():
+    questions = get_all_questions()
+    for question in questions:
+        if question[0] != "id":
+            question[1] = date(question[1])
+
+    return render_template('list.html', questions=questions)
 
 
 @app.route("/add-question", methods=['POST', 'GET'])
@@ -43,15 +49,6 @@ def date(convert_time):
 
     return time.strftime('%d.%m.%Y')
 
-
-@app.route("/list")
-def list_questions():
-    questions = get_all_questions()
-    for question in questions:
-        if question[0] != "id":
-            question[1] = date(question[1])
-
-    return render_template('list.html', questions=questions)
 
 
 
