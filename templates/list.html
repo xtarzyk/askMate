@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of questions</title>
+</head>
+<body>
+    <h1>Jakiś duży napis</h1>
+    <div style="border:2px solid #11557C">
+        {% for question in questions %}
+            {% if question[0] != "id" %}
+                <div style="border:2px solid #3A7734">
+                    <h2><a href="/question/{{ question[0] }}">{{ question[4] }}</a></h2>
+                    <div style="float:right;border:2px solid #11557C">
+                        {{ question[1] }}
+                    </div>
+                    <div style="border:2px solid #3A7734">
+                        {{ question[5] }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
