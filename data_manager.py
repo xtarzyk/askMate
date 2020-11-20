@@ -16,7 +16,7 @@ def read_csv_file(filename):
 csv_columns = ["id", "submission_time", "view_number", "vote_number", "title", "message"]
 
 
-def write_csv_file(filename, dictionaries, write_method="w"):
+def write_csv_file(filename, dictionaries, write_method="a"):
     """
     params: nazwa pliku, lista słowników, opcjonalnie metoda zapisu: w/a
     returns: nothing
