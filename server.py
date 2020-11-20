@@ -2,10 +2,11 @@ from flask import Flask, render_template, redirect, request, abort
 from util import get_question_by_id, get_answers_by_question_id, id_maker, get_all_questions
 from datetime import datetime
 from data_manager import read_csv_file, csv_columns, write_csv_file
-
+import os
 
 app = Flask(__name__)
-DATAFILE = './sample_data/question.csv'
+DATAFILE = 'sample_data/question.csv'
+
 
 @app.route("/")
 def hello():
@@ -53,6 +54,23 @@ def list_questions():
 
     return render_template('list.html', questions=questions)
 
+
+app.config["IMAGE_UPLOADS"] = "E:/Dev/WEB/ask-mate-1-python-Fraktalia/static/image/uploads"
+
+
+@app.route("/upload-image", methods=["GET", "POST"])
+def upload_image():
+    if request.method == "POST":
+
+        if request.files:
+            image = request.files["image"]
+
+            image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
+            print("Image saved")
+
+            return redirect(request.url)
+
+    return render_template('upload_image.html')
 
 
 if __name__ == "__main__":
