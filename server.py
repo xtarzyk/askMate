@@ -1,7 +1,9 @@
 from flask import Flask, render_template, redirect, request, abort
-from util import get_question_by_id, get_answers_by_question_id, id_maker, get_all_questions
+from util import get_question_by_id, get_answers_by_question_id, id_maker
 from datetime import datetime
 from data_manager import read_csv_file, csv_columns, write_csv_file
+from collections import OrderedDict
+from operator import getitem
 import os
 
 app = Flask(__name__)
@@ -47,11 +49,39 @@ def date(convert_time):
 
 @app.route("/list")
 def list_questions():
-    questions = get_all_questions()
-    for question in questions:
-        if question[0] != "id":
-            question[1] = date(question[1])
+    questions = read_csv_file(DATAFILE)
+    questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number")))
 
+    sort_by = request.args.get("sort_by")
+    order = request.args.get("order")
+    if order == "asc":
+        if sort_by == "title":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "title")))
+        if sort_by == "submission_time":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "submission_time")))
+        if sort_by == "message":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "message")))
+        if sort_by == "view_number":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number")))
+        if sort_by == "vote_number":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "vote_number")))
+    if order == "desc":
+        if sort_by == "title":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "title"), reverse=True))
+        if sort_by == "submission_time":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "submission_time"), reverse=True))
+        if sort_by == "message":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "message"), reverse=True))
+        if sort_by == "view_number":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number"), reverse=True))
+        if sort_by == "vote_number":
+            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "vote_number"), reverse=True))
+
+
+
+
+    for question in questions:
+        questions[question]["submission_time"] = date(questions[question]["submission_time"])
     return render_template('list.html', questions=questions)
 
 

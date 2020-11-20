@@ -24,6 +24,7 @@ def write_csv_file(filename, dictionaries, write_method="a"):
     """
     with open(filename, write_method) as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-        writer.writeheader()
+        if write_method == "w":
+            writer.writeheader()
         for data in dictionaries:
             writer.writerow(data)
