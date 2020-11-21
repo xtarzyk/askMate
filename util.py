@@ -1,3 +1,4 @@
+
 # otwieram csv
 
 
@@ -29,10 +30,13 @@ def get_answers_by_question_id(question_id):
 
 
 def id_maker(dict_id):
-  
     if len(dict_id) == 0:
         ide = 1
     else:
-        max_key = max(dict_id, key=dict_id.get)
+        max_key = max(dict_id, key=int)
         ide = max_key + 1
-    return ide
+    return int(ide)
+
+# def get_all_questions():
+#     data_file = open_file('sample_data/movie_questions.csv')
+#     return data_file
