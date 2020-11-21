@@ -5,26 +5,28 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>QUESTIONS nad ANSWERS</h1>
-    <h2>Question {{ question[4] }}</h2>
-    <p> {{ question[5] }} </p>
-    <h2>Answers:</h2>
-    <div>
-        {% for answer in answers %}
-            <h2>id:</h2>
-            <p><strong>{{ answer[0] }}</strong></p>
+    <h1>Hi Dude, did you just ask mate?</h1>
+    <h2>So you don't like a web graphics?</h2>
+    <h2>This page is UNDER Construction :)</h2>
+    <h1>Your question is:{{ question['title'] }}</h1>
+    <h3>Not interested? So..........</h3>
+    <a href="/question/{{ question_id }}/delete "><button>JUST DELETE IT</button></a>
+    <div><hr>
+        {% for i in answers %}
+{#            <h2>id:</h2><hr>#}
+{#                <p><strong>{{ answers[i]['id'] }}</strong></p>#}
             <h2>submission_time:</h2>
-            <p><strong>{{ answer[1]|date }}</strong></p>
+                <p><strong>{{ answers[i]['submission_time']|date }}</strong></p><hr>
             <h2>vote_number</h2>
-            <p><strong>{{ answer[2] }}</strong></p>
+                <p><strong>{{ answers[i]['vote_number'] }}</strong></p><hr>
             <h2>question_id</h2>
-            <p><strong>{{ answer[3] }}</strong></p>
-            <h2>message</h2>
-            <p><strong>{{ answer[4] }}</strong></p>
+                <p><strong>{{ answers[i]['question_id'] }}</strong><hr>
+            <h2>message</h2><
+                <p><strong>{{ answers[i]['message'] }}</strong></p><hr>
             <h2>image</h2>
-            <p><strong>{{ answer[5] }}</strong></p>
-
+                <p><strong>{{ answers[i]['image'] }}</strong></p><hr>
         {% endfor %}
+    </div>
     </div>
 
 
