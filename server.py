@@ -1,10 +1,11 @@
-from flask import Flask, render_template, redirect, request, abort
-from util import get_question_by_id, get_answers_by_question_id, id_maker
+from flask import Flask, render_template, redirect, request, abort,url_for
+from util import get_question_by_id, get_answers_by_question_id, id_maker,delete_question
 from datetime import datetime
 from data_manager import read_csv_file, csv_columns, write_csv_file
+import os
 from collections import OrderedDict
 from operator import getitem
-import os
+
 
 app = Flask(__name__)
 DATAFILE = 'sample_data/question.csv'
@@ -33,12 +34,21 @@ def add_question():
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
+    question_id = int(question_id)
     question = get_question_by_id(question_id)
     if question is None:
         return abort(404)
     answers = get_answers_by_question_id(question_id)
-    return render_template('question.html', question=question, answers=answers)
+    print(answers)
+    return render_template('question.html', question_id=question_id, question=question, answers=answers)
 
+@app.route('/question/<question_id>/delete')
+def question_del_by_id(question_id):
+    print(question_id)
+    question_id = int(question_id)
+    delete_question(question_id)
+
+    return redirect(url_for('list_questions'))
 
 @app.template_filter('date')
 def date(convert_time):
