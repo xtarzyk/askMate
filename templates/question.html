@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html'  %}
+
+{% block body%}
+
     <h1>Hi Dude, did you just ask mate?</h1>
     <h2>So you don't like a web graphics?</h2>
     <h2>This page is UNDER Construction :)</h2>
@@ -13,8 +10,6 @@
     <a href="/question/{{ question_id }}/delete "><button>JUST DELETE IT</button></a>
     <div><hr>
         {% for i in answers %}
-{#            <h2>id:</h2><hr>#}
-{#                <p><strong>{{ answers[i]['id'] }}</strong></p>#}
             <h2>submission_time:</h2>
                 <p><strong>{{ answers[i]['submission_time']|date }}</strong></p><hr>
             <h2>vote_number</h2>
@@ -29,6 +24,5 @@
     </div>
     </div>
 
+{% endblock %}
 
-</body>
-</html>

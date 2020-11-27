@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List of questions</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block body %}
 
     <h1>Question Library</h1>
 
@@ -39,5 +35,4 @@
         {% endfor %}
     {{ cokolwiek }}
     </div>
-</body>
-</html>
+{% endblock %}

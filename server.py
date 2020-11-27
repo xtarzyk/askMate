@@ -12,8 +12,8 @@ DATAFILE = 'sample_data/question.csv'
 
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def main():
+    return render_template('main.html')
 
 
 @app.route("/add-question", methods=['POST', 'GET'])
