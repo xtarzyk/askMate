@@ -1,24 +1,25 @@
 {% extends 'layout.html' %}
 
+{% block title %}Add Question{% endblock %}
 {% block body %}
-<div>
-    <title>Add Question</title>
-    <h1>What you want to ask?</h1>
-    <form action="/add-question" method="post" enctype="multipart/form-data">
+    <div>
+
+        <h3>What you want to ask?</h3>
+        <form action="/add-question" method="post" enctype="multipart/form-data">
 
             <label for="note-input">Your question:</label>
             <textarea id="note-input" name="note" rows="4" cols="60"></textarea>
             <div class="form-group">
                 <label>Select image</label>
                 <div class="custom-file">
-                <input type="file" class="custom-file-input" name="image" id="image">
-                <label class="custom-file-label" for="image">Select image...</label>
+                    <input type="file" class="custom-file-input" name="image" id="image">
+                    <label class="custom-file-label" for="image">Select image...</label>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Upload</button>
-            <button type="submit" class="btn btn-secondary">Save question!</button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-outline-success">Upload</button>
+            <button type="submit" class="btn btn-outline-warning">Save question!</button>
+        </form>
+    </div>
 {% endblock %}
 

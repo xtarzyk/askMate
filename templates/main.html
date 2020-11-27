@@ -1,18 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My first app</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <title>{% block title %}{% endblock %}</title>
+
+
 <body>
-    {% include 'includes/_navbar.html' %}
-    <div class="container">
-        {% block body %}{% endblock %}
+{% include 'includes/_navbar.html' %}
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
 
+
+ <footer>
+    <div>
+      <small>Copyright &copy; ASK MATE by Domi & Gaba & Kamil & MeHow</small>
     </div>
-
+  </footer>
 
 </body>
 </html>
