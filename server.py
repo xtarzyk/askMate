@@ -4,11 +4,21 @@ from datetime import datetime
 from data_manager import read_csv_file, csv_columns, write_csv_file
 from collections import OrderedDict
 from operator import getitem
+import sql_data_manager
 import os
+import psycopg2
 
 app = Flask(__name__)
 DATAFILE = 'sample_data/question.csv'
 
+
+def main():
+    # Load database.sql
+    sql_data_manager.load_database()
+    sql_data_manager.add_question(6, 'Mleko dobre?', 1493368154, 'Mleko?', 5, 12)
+    sql_data_manager.get_max_id()
+    # Start server
+    app.run()
 
 @app.route("/")
 def hello():
@@ -104,4 +114,4 @@ def upload_image():
 
 
 if __name__ == "__main__":
-    app.run()
+    main()
