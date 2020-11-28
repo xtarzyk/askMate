@@ -61,6 +61,14 @@ def get_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
     question = [*query_result[0].values()]
     return question
 
+@database_common.connection_handler
+def delete_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
+    query = """
+    DELETE FROM questions
+    WHERE question_id = %(question_id)s
+    """
+    cursor.execute(query, {'question_id': id_number})
+
 # except (Exception, psycopg2.Error) as error :
 #     if(connection):
 #         print("Failed to insert record into mobile table", error)
