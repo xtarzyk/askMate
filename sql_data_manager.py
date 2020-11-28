@@ -14,18 +14,6 @@ import database_common
 #     cursor.execute(query, {'last_name': last_name})
 #     return cursor.fetchall()
 
-# @database_common.connection_handler
-# def add_question(cursor: RealDictCursor, id: int , message: str, time: int, title: str, view: int, vote: int):
-#     query = """
-#         INSERT INTO questions
-#         VALUES (%(id)s,
-#         %(message)s,
-#         %(time)s,
-#         %(title)s,
-#         %(view)s,
-#         %(vote)s
-#         );
-#
 
 
 @database_common.connection_handler
@@ -59,6 +47,19 @@ def get_max_id(cursor: RealDictCursor):
     query_result = cursor.fetchall()
     new_id = [*query_result[0].values()][0]
     return new_id
+
+
+@database_common.connection_handler
+def get_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
+    query = """
+    SELECT *
+    FROM questions
+    WHERE question_id = %(question_id)s
+    """
+    cursor.execute(query, {'question_id': id_number})
+    query_result = cursor.fetchall()
+    question = [*query_result[0].values()]
+    return question
 
 # except (Exception, psycopg2.Error) as error :
 #     if(connection):

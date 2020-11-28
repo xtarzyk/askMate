@@ -17,6 +17,7 @@ def main():
     sql_data_manager.load_database()
     sql_data_manager.add_question(6, 'Mleko dobre?', 1493368154, 'Mleko?', 5, 12)
     sql_data_manager.get_max_id()
+    sql_data_manager.get_question_by_id(1)
     # Start server
     app.run()
 
