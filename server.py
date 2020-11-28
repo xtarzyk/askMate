@@ -95,7 +95,7 @@ def list_questions():
     return render_template('list.html', questions=questions)
 
 
-app.config["IMAGE_UPLOADS"] = "E:/Dev/WEB/ask-mate-1-python-Fraktalia/static/image/uploads"
+app.config["IMAGE_UPLOADS"] = "E:/Dev/WEB/askMate/static/uploads"
 
 
 @app.route("/upload-image", methods=["GET", "POST"])
