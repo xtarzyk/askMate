@@ -1,8 +1,117 @@
-/*NAVIGATION*/
+/* Global */
 
-ul{
-    list-style-type: none;
-    margin: 0;
+body {
+    margin: none;
+    font:16px;
+    initial-letter: 1.7;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font:#2c3c65
+}
+
+container {
+    width:  max-content;
+    padding: 0,20px;
+    align-items: center;
+
+}
+section {
+    padding:  96px,0,96px;
+}
+
+
+/* Navigation */
+
+.navigation {
+    background-color: cadetblue;
     padding: 0;
+    margin: 0;
+}
+
+nav li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 36px;
+    position: relative;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font: white;
+
+}
+a:link{
     text-decoration: none;
 }
+a:hover {
+    color: #f3eced;
+
+}
+.navigation{
+    position: relative;
+    display: block;
+}
+
+.navigation ul li  {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+}
+#a:hover {
+    color:red;
+}
+
+#a:focus-visible {
+    color: aqua;
+}
+
+
+a {
+    display: block;
+}
+/*body {*/
+/*    color:  red;*/
+/*  height: 10%;*/
+/*  margin: 0;*/
+/*}*/
+/*.splash-inner {*/
+/*    background-color: black;*/
+/*}*/
+/*!*HEADER*!*/
+/*.page-title {*/
+/*    font-size: 130px;*/
+/*    font-family: fantasy ;*/
+/*    align-content: center;*/
+
+/*}*/
+/*.splash {*/
+/*    background-color: black;*/
+/*    display: flex;*/
+/*    font-family:"Comic Sans MS";*/
+/*    font-size: 25px;*/
+
+/*}*/
+
+/*.splash-inner {*/
+/*    background-color: black;*/
+/*    height: 1000px;*/
+/*    width: 1000px;*/
+
+/*    padding: 10px;*/
+/*    text-align: center;*/
+/*    border-width: 2px;*/
+/*    border-style: solid;*/
+/*}*/
+
+
+
+/*img{*/
+/*    width: 100%;*/
+/*    display:block;*/
+/*}*/
+
+/*!*footer*!*/
+/*.footer,*/
+/*.push {*/
+/*  height: 50px;*/
+/*}*/
