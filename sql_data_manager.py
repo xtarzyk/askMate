@@ -1,4 +1,3 @@
-import psycopg2
 from psycopg2.extras import RealDictCursor, execute_values
 
 import database_common
@@ -61,6 +60,7 @@ def get_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
     question = [*query_result[0].values()]
     return question
 
+
 @database_common.connection_handler
 def delete_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
     query = """
@@ -69,12 +69,12 @@ def delete_question_by_id(cursor: RealDictCursor, id_number: str) -> list:
     """
     cursor.execute(query, {'question_id': id_number})
 
-# except (Exception, psycopg2.Error) as error :
-#     if(connection):
-#         print("Failed to insert record into mobile table", error)
-#
-# finally:
-#     #closing database connection.
-#     if(connection):
-#         cursor.close()
-#         connection.close()
+
+@database_common.connection_handler
+def update_question(cursor: RealDictCursor, id_number: int, new_title: str, new_message: str) -> list:
+    query = """
+    UPDATE questions
+    SET title = %(title)s, message = %(message)s
+    WHERE question_id = %(question_id)s
+    """
+    cursor.execute(query, {'question_id': id_number, 'title': new_title, 'message': new_message})
