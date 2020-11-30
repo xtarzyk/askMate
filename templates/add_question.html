@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/add_question_look.css') }}">
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+</head>
+<p>
+<div class="header"></div>
+<div class="content-wrapper">
+    <div class="sidebar" id="left-sidebar"></div>
+<div class="content">
+    <div class="main_menu">
+        <a href="/"><span style="color: white"> Main Page</span></a>
+    <a href="/list"><span style="color: white">Question's list</span></a>
+    </div>
+    <div class="question_from">
+    <h1> Your Question </h1>
+            <form action="/add-question" method="post" enctype="multipart/form-data">
+                <label for="question-input">Title:</label>
+                <textarea id="question-input" name="note" rows="2" cols="60" style="background-color: white"></textarea>
+
+                <label for="note-input">Your question:</label>
+                <textarea id="note-input" name="note" rows="4" cols="60"></textarea>
+
+                <label class="custom-file-label" for="image">Select image...</label>
+                <input type="file" class="custom-file-input" name="image" id="image">
+
+                <button type="submit" id="upload-button" class="btn btn-primary">Upload</button>
+                <button type="submit" id="save-button">Save question!</button>
+            </form>
+            </div>
+    </div>
+    <div class="sidebar" id="right-sidebar"></div>
+</div>
+</body>
+</html>

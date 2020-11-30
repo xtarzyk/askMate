@@ -1,0 +1,107 @@
+
+.header {
+  padding: 180px;
+  text-align: center;
+  background-image: url('../image/frame.png');
+  color: white;
+    max-width: 100%;
+    overflow: hidden;
+    z-index: 10;
+}
+
+ .body {
+        background-color: white;
+        margin: 0;
+    }
+    h1 {
+        color: brown;
+        margin-top: 60px;
+    }
+.content {
+    display: block;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 100%;
+    width: 1000px;
+    flex-flow: column nowrap;
+    z-index: 10;
+    font-family: Apple Chancery, cursive;
+    font-size: 1.3em;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.main_menu {
+    background-color: black;
+    height: 60px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    justify-content: space-around;
+    font-family: Apple Chancery, cursive;
+    font-size: 30px;
+    display: flex;
+}
+.sidebar {
+    background-image: url('../image/frame_rame.png');
+    position: absolute;
+    background-repeat: repeat-y;
+    width: 200px;
+    height: 100%;
+    z-index: -1;
+}
+#left-sidebar {
+    left: 0;
+    background-position: left ;
+}
+#right-sidebar {
+    right: 0;
+    background-position: right;
+}
+form{
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1em;
+    border-radius: 1.8em;
+}
+#upload-button {
+    width: 12%;
+}
+.question_from{
+    background-image: url('../image/herbatniki.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+h1 {
+    margin: 0;
+    padding-top: 1.2em;
+}
+#question-input{
+    background-color: white;
+    width: 54%;
+    height: 39px;
+}
+#note-input{
+    background-color: white;
+    width: 54%;
+    height: 345px;
+}
+#save-button{
+    width: 40.2%;
+    background-color: #005022;
+    color: white;
+    font-size: 1.4em;
+    border-radius: 0.4em;
+    margin: 1.3em 2.2em;
+    font-family: Apple Chancery, cursive;
+}
+
+textarea {
+    resize: none;
+    font-size: 1.2em;
+}

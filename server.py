@@ -6,7 +6,6 @@ from collections import OrderedDict
 from operator import getitem
 import sql_data_manager
 import os
-import psycopg2
 
 app = Flask(__name__)
 DATAFILE = 'sample_data/question.csv'
@@ -15,11 +14,6 @@ DATAFILE = 'sample_data/question.csv'
 def main():
     # Load database.sql
     sql_data_manager.load_database()
-    # sql_data_manager.add_question(6, 'Mleko dobre?', 1493368154, 'Mleko?', 5, 12)
-    # sql_data_manager.get_max_id()
-    # sql_data_manager.get_question_by_id(1)
-    # sql_data_manager.delete_question_by_id(1)
-    sql_data_manager.update_question(2, "Anna", "Kot")
     # Start server
     app.run()
 
@@ -41,7 +35,7 @@ def add_question():
         new['message'] = user_question
         write_csv_file(DATAFILE, [new], write_method="a")
         return redirect('/question/%d' % id_question)
-    return render_template('index.html')
+    return render_template('add_question.html')
 
 
 @app.route('/question/<question_id>')
