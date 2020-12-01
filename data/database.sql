@@ -29,10 +29,10 @@ CREATE TABLE answers
 );
 
     INSERT INTO questions
-    VALUES (1, 'Why am I here?', 1493368154, 'Why?', 5, 3),
-            (2, 'Jaka dzisiaj jest pogoda?',1493368238, 'Pogoda', 8, 7 ),
-            (3, 'Co dzisiaj robiłeś?', 1493368678, 'Zabawa', 6, 2),
-            (4, 'Co jadłaś na obiad?', 1493368234, 'Kuchnia', 7, 9);
+    VALUES (1, 'Chcę na święta upiec dobry piernik dla 5 osób. Czy ktoś z Was ma jakiś ciekawy przepis dla początkującego kucharza?', 1493368154, 'Jak zrobić dobry piernik?', 5, 3),
+            (2, 'Cześć. Pierwszy raz zrobiłam dzisiaj świąteczne ciasteczka z przepisu Pani Gessler. Wyszły obłędne, koniecznie musicie ich spróbować.',1493368238, 'Przepis na świąteczne ciasteczka.', 8, 7 ),
+            (3, 'Szukam pomysłu na to, czym ozdobić świąteczne ciasto. Lukrem, gotowymi ozdobami, czekoladą? I gdzie kupić takie cudeńka? Z góry dzięki za opdowiedź.', 1493368678, 'Czym ozdobić ciasto?', 6, 2),
+            (4, 'Chciałem na świeta przygotować wypieki dla rodziny, ale popsuł się mój wiekowy mikser. Czy ktoś z Was może polecić jakąś firmę, albo konkrenty model?', 1493368234, 'Gdzie kupić mikser?', 7, 9);
 
 --
 --

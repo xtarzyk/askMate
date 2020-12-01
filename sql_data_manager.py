@@ -1,7 +1,7 @@
 from psycopg2.extras import RealDictCursor, execute_values
 
 import database_common
-#
+import time
 # Funkcja zostawiona dla przykładu na później
 # @database_common.connection_handler
 # def get_mentors_by_last_name(cursor: RealDictCursor, last_name: str) -> list:
@@ -78,3 +78,22 @@ def update_question(cursor: RealDictCursor, id_number: int, new_title: str, new_
     WHERE question_id = %(question_id)s
     """
     cursor.execute(query, {'question_id': id_number, 'title': new_title, 'message': new_message})
+
+
+@database_common.connection_handler
+def last_questions(cursor: RealDictCursor, number: int) -> list:
+    query = """
+    SELECT *
+    FROM questions
+    ORDER BY submission_time desc
+    LIMIT %(number)s
+    """
+
+    cursor.execute(query, {'number': number})
+    query_result = cursor.fetchall()
+    questions_list = []
+    for i in range(len(query_result)):
+        question = [*query_result[i].values()]
+        questions_list.append(question)
+    return questions_list
+

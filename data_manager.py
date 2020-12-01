@@ -1,4 +1,5 @@
 import csv
+import time
 
 
 def read_csv_file(filename):
@@ -28,3 +29,11 @@ def write_csv_file(filename, dictionaries, write_method="a"):
             writer.writeheader()
         for data in dictionaries:
             writer.writerow(data)
+
+
+def convert_to_data(list_of_question):
+    for i in range(len(list_of_question)):
+        time_in_seconds = list_of_question[i][2]
+        local_time = time.ctime(time_in_seconds)
+        list_of_question[i][2] = local_time
+    return list_of_question

@@ -1,7 +1,9 @@
 from flask import Flask, render_template, redirect, request, abort
+
+import data_manager
 from util import get_question_by_id, get_answers_by_question_id, id_maker
 from datetime import datetime
-from data_manager import read_csv_file, csv_columns, write_csv_file
+from data_manager import read_csv_file, csv_columns, write_csv_file, convert_to_data
 from collections import OrderedDict
 from operator import getitem
 import sql_data_manager
@@ -14,12 +16,16 @@ DATAFILE = 'sample_data/question.csv'
 def main():
     # Load database.sql
     sql_data_manager.load_database()
+    sql_data_manager.last_questions(5)
     # Start server
     app.run()
 
+
 @app.route("/")
 def hello():
-    return "Hello World!"
+    list_of_questions = sql_data_manager.last_questions(5)
+    list_of_questions_with_data = data_manager.convert_to_data(list_of_questions)
+    return render_template('main_page.html', list_of_questions=list_of_questions)
 
 
 @app.route("/add-question", methods=['POST', 'GET'])

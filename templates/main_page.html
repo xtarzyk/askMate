@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/main_page.css') }}">
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="content-wrapper">
+    <div class="sidebar" id="left-sidebar"></div>
+    <div class="content">
+        <div class="main_menu">
+            <a href="/add-question"><span style="color: white"> Add question</span></a>
+            <a href="/list"><span style="color: white">Question's list</span></a>
+        </div>
+        <div class="question_from">
+            <h1> Hello Christmas Baker! </h1>
+            {% for question in list_of_questions %}
+                <div class="question">
+                    <div class="left-column">
+                        <div class="question-title">
+                        {{ question[3] }}
+                        </div>
+                        <div class="question-message">
+                            {{ question[1] }}
+                        </div>
+                        <div class="vote-and-view">
+                            <div class="question-view-number">
+                            {{ question[4] }}
+                            </div>
+                            <div class="question-vote-number">
+                            {{ question[5] }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="question=image">
+                        {{ question[6] }}
+                        </div>
+                        <div class="question-date">
+                        {{ question[2] }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="sidebar" id="right-sidebar"></div>
+</div>
+</body>
+</html>
