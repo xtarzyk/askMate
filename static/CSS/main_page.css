@@ -10,7 +10,7 @@
 }
 
  .body {
-        background-color: white;
+        background-color: black;
         margin: 0;
     }
     h1 {
@@ -31,6 +31,14 @@
 }
 
 .content-wrapper {
+    background-image:
+            url('../image/frame_rame.png'),
+            url('../image/frame_rame.png');
+    background-position:
+            top right,
+            top left;
+    background-repeat: repeat-y;
+    background-size: 19em;
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
@@ -47,23 +55,6 @@
     font-family: Apple Chancery, cursive;
     font-size: 30px;
     display: flex;
-}
-
-.sidebar {
-    background-image: url('../image/frame_rame.png');
-    position: absolute;
-    background-repeat: repeat-y;
-    width: 200px;
-    height: 100%;
-    z-index: -1;
-}
-#left-sidebar {
-    left: 0;
-    background-position: top left ;
-}
-#right-sidebar {
-    right: 0;
-    background-position: top right;
 }
 
 form{
@@ -86,12 +77,15 @@ h1 {
 }
 
 .question {
-    background-color: #11557C;
+    background-image: url('../image/question_back.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 100%;
     margin: 2.4em 0;
     width: 28.2em;
     border-radius: 0.4em;
     padding: 0.7em;
-    color: white;
+    color: black;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -99,7 +93,27 @@ h1 {
 .left-column {
     width: 50%;
 }
-.question-title{
-    padding: 1em;
+
+.right-column {
+    justify-content: space-between;
+    display: flex;
+    flex-flow: column;
 }
 
+.question-title{
+    padding: 0.7em;
+}
+
+.question-message{
+    padding: 0.6em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vote-and-view{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    margin-top: 1.2em;
+}

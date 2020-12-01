@@ -8,7 +8,6 @@
 <body>
 <div class="header"></div>
 <div class="content-wrapper">
-    <div class="sidebar" id="left-sidebar"></div>
     <div class="content">
         <div class="main_menu">
             <a href="/add-question"><span style="color: white"> Add question</span></a>
@@ -20,17 +19,17 @@
                 <div class="question">
                     <div class="left-column">
                         <div class="question-title">
-                        {{ question[3] }}
+                            <a href="question/{{ question[0] }}" style="color: black"> {{ question[3] }} </a>
                         </div>
                         <div class="question-message">
                             {{ question[1] }}
                         </div>
                         <div class="vote-and-view">
                             <div class="question-view-number">
-                            {{ question[4] }}
+                            View: {{ question[4] }}
                             </div>
                             <div class="question-vote-number">
-                            {{ question[5] }}
+                            Vote: {{ question[5] }}
                             </div>
                         </div>
                     </div>
@@ -46,7 +45,6 @@
             {% endfor %}
         </div>
     </div>
-    <div class="sidebar" id="right-sidebar"></div>
 </div>
 </body>
 </html>

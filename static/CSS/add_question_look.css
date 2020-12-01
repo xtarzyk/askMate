@@ -30,6 +30,14 @@
 }
 
 .content-wrapper {
+    background-image:
+        url('../image/frame_rame.png'),
+        url('../image/frame_rame.png');
+    background-position:
+        top right,
+        top left;
+    background-repeat: repeat-y;
+    background-size: 19em;
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
@@ -46,22 +54,7 @@
     font-size: 30px;
     display: flex;
 }
-.sidebar {
-    background-image: url('../image/frame_rame.png');
-    position: absolute;
-    background-repeat: repeat-y;
-    width: 200px;
-    height: 100%;
-    z-index: -1;
-}
-#left-sidebar {
-    left: 0;
-    background-position: left ;
-}
-#right-sidebar {
-    right: 0;
-    background-position: right;
-}
+
 form{
     display: flex;
     flex-flow: column nowrap;
