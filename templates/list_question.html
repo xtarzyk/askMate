@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/list_question.css') }}">
+    <meta charset="UTF-8">
+    <title>Questions List</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="content-wrapper">
+    <div class="content">
+        <div class="main_menu">
+            <a href="/"><span style="color: white"> Main Page</span></a>
+            <a href="/add-question"><span style="color: white">Add question</span></a>
+        </div>
+        <div class="question_from">
+            <h1> Your question list! </h1>
+        <div class="select_list">
+         <label for="cars">Select by:</label>
+            <select name="select" id="option_of_select">
+              <option value="title" name = "select-title">Title</option>
+              <option value="oldest" name = "select-oldest">Oldest</option>
+                <option value="latest" name="select-latest">Latest</option>
+              <option value="views: asc" name="select-views-asc">Views: Asc</option>
+                <option value="views: desc" name="select-views-desc">Views: Desc</option>
+              <option value="votes: asc" name="select-votes-asc">Votes: Asc</option>
+                <option value="votes: desc" name="select-votes-de">Votes: Desc</option>
+            </select>
+        </div>
+            {% for question in list_of_questions %}
+                <div class="question">
+                    <div class="left-column">
+                        <div class="question-title">
+                            <a href="question/{{ question[0] }}" style="color: black"> {{ question[3] }} </a>
+                        </div>
+                        <div class="question-message">
+                            {{ question[1] }}
+                        </div>
+                        <div class="vote-and-view">
+                            <div class="question-view-number">
+                            View: {{ question[4] }}
+                            </div>
+                            <div class="question-vote-number">
+                            Vote: {{ question[5] }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="question=image">
+                        {{ question[6] }}
+                        </div>
+                        <div class="question-date">
+                        {{ question[2] }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

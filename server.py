@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request, abort
-
 import data_manager
 from util import get_question_by_id, get_answers_by_question_id, id_maker
 from datetime import datetime
@@ -8,6 +7,7 @@ from collections import OrderedDict
 from operator import getitem
 import sql_data_manager
 import os
+import time
 
 app = Flask(__name__)
 DATAFILE = 'sample_data/question.csv'
@@ -15,90 +15,50 @@ DATAFILE = 'sample_data/question.csv'
 
 def main():
     # Load database.sql
-    sql_data_manager.load_database()
-    sql_data_manager.last_questions(5)
+    # sql_data_manager.load_database()
     # Start server
     app.run()
 
 
 @app.route("/")
-def hello():
+def main_page():
     list_of_questions = sql_data_manager.last_questions(5)
     list_of_questions_with_data = data_manager.convert_to_data(list_of_questions)
-    return render_template('main_page.html', list_of_questions=list_of_questions)
+    return render_template('main_page.html', list_of_questions=list_of_questions_with_data)
 
 
 @app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
-        question_dict = read_csv_file(DATAFILE)
-        id_question = id_maker(question_dict)
-        user_question = request.form['note']
-        new = {}
-        for key in csv_columns:
-            new[key] = ''
-        new["id"] = str(id_question)
-        new['message'] = user_question
-        write_csv_file(DATAFILE, [new], write_method="a")
-        return redirect('/question/%d' % id_question)
+        id_question = sql_data_manager.get_max_id()
+        title = request.form['title']
+        message = request.form['message']
+        view = 0
+        vote = 0
+        time_of_add_question = time.time()
+        sql_data_manager.add_question(id_question, message, time_of_add_question, title, view, vote)
+        return redirect(f'/question/{id_question}')
     return render_template('add_question.html')
 
 
 @app.route('/question/<question_id>')
 def display_question(question_id):
-    question = get_question_by_id(question_id)
-    if question is None:
-        return abort(404)
-    answers = get_answers_by_question_id(question_id)
-    return render_template('question.html', question=question, answers=answers)
+    question_ide = question_id
+    question = sql_data_manager.get_question_by_id(question_ide)
+    title = question[3]
+    message = question[1]
+    time_of_question = data_manager.convert_to_data(question[2])
+    vote = question[5]
+    view = question[4]
+    return render_template('question_side.html', title=title, message=message, time=time_of_question, vote=vote,
+                           view=view, question_ide=question_ide )
 
 
-@app.template_filter('date')
-def date(convert_time):
-    time = datetime.fromtimestamp(int(convert_time))
-
-    return time.strftime('%d.%m.%Y')
-
-
-@app.route("/list")
+@app.route("/list", methods=['POST', 'GET'])
 def list_questions():
-    questions = read_csv_file(DATAFILE)
-    questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number")))
-
-    sort_by = request.args.get("sort_by")
-    order = request.args.get("order")
-    if order == "asc":
-        if sort_by == "title":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "title")))
-        if sort_by == "submission_time":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "submission_time")))
-        if sort_by == "message":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "message")))
-        if sort_by == "view_number":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number")))
-        if sort_by == "vote_number":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "vote_number")))
-    if order == "desc":
-        if sort_by == "title":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "title"), reverse=True))
-        if sort_by == "submission_time":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "submission_time"), reverse=True))
-        if sort_by == "message":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "message"), reverse=True))
-        if sort_by == "view_number":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "view_number"), reverse=True))
-        if sort_by == "vote_number":
-            questions = OrderedDict(sorted(questions.items(), key=lambda x: getitem(x[1], "vote_number"), reverse=True))
-
-
-
-
-    for question in questions:
-        questions[question]["submission_time"] = date(questions[question]["submission_time"])
-    return render_template('list.html', questions=questions)
-
-
-app.config["IMAGE_UPLOADS"] = "E:/Dev/WEB/ask-mate-1-python-Fraktalia/static/image/uploads"
+    list_of_questions = sql_data_manager.all_question()
+    list_of_questions_with_data = data_manager.convert_to_data(list_of_questions)
+    return render_template('list_question.html', list_of_questions=list_of_questions_with_data)
 
 
 @app.route("/upload-image", methods=["GET", "POST"])

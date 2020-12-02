@@ -32,8 +32,14 @@ def write_csv_file(filename, dictionaries, write_method="a"):
 
 
 def convert_to_data(list_of_question):
-    for i in range(len(list_of_question)):
-        time_in_seconds = list_of_question[i][2]
+    try:
+        for i in range(len(list_of_question)):
+            time_in_seconds = list_of_question[i][2]
+            local_time = time.ctime(time_in_seconds)
+            list_of_question[i][2] = local_time
+    except:
+        time_in_seconds = list_of_question
         local_time = time.ctime(time_in_seconds)
-        list_of_question[i][2] = local_time
+        list_of_question = local_time
+
     return list_of_question

@@ -45,6 +45,7 @@ def get_max_id(cursor: RealDictCursor):
     cursor.execute(query)
     query_result = cursor.fetchall()
     new_id = [*query_result[0].values()][0]
+    new_id = new_id + 1
     return new_id
 
 
@@ -97,3 +98,32 @@ def last_questions(cursor: RealDictCursor, number: int) -> list:
         questions_list.append(question)
     return questions_list
 
+
+@database_common.connection_handler
+def all_question(cursor: RealDictCursor) -> list:
+    query = """
+    SELECT *
+    FROM questions
+    """
+    cursor.execute(query)
+    query_result = cursor.fetchall()
+    questions_list = []
+    for i in range(len(query_result)):
+        question = [*query_result[i].values()]
+        questions_list.append(question)
+    return questions_list
+
+
+def select_question_by_title(cursor: RealDictCursor) -> list:
+    query = """
+    SELECT title
+    FROM questions
+    ORDER BY title asc 
+    """
+    cursor.execute(query)
+    query_result = cursor.fetchall()
+    questions_list = []
+    for i in range(len(query_result)):
+        question = [*query_result[i].values()]
+        questions_list.append(question)
+    return questions_list
