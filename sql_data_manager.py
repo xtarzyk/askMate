@@ -114,12 +114,62 @@ def all_question(cursor: RealDictCursor) -> list:
     return questions_list
 
 
-def select_question_by_title(cursor: RealDictCursor) -> list:
-    query = """
-    SELECT title
-    FROM questions
-    ORDER BY title asc 
-    """
+def select_question_by(select) -> list:
+    if select == 'title':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY title asc 
+        """
+        return execute(query)
+    elif select == 'oldest':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY submission_time asc 
+        """
+        return execute(query)
+    elif select == 'latest':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY submission_time desc
+        """
+        return execute(query)
+    elif select == 'views: asc':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY view_number asc
+        """
+        return execute(query)
+    elif select == 'views: desc':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY view_number desc
+        """
+        return execute(query)
+    elif select == 'votes: asc':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY vote_number asc
+        """
+        return execute(query)
+    elif select == 'votes: desc':
+        query = """
+        SELECT *
+        FROM questions
+        ORDER BY vote_number desc
+        """
+        return execute(query)
+    else:
+        return all_question()
+
+
+@database_common.connection_handler
+def execute(cursor: RealDictCursor, query):
     cursor.execute(query)
     query_result = cursor.fetchall()
     questions_list = []

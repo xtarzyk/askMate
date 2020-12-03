@@ -54,9 +54,16 @@ def display_question(question_id):
                            view=view, question_ide=question_ide )
 
 
-@app.route("/list", methods=['POST', 'GET'])
+@app.route("/list")
 def list_questions():
     list_of_questions = sql_data_manager.all_question()
+    list_of_questions_with_data = data_manager.convert_to_data(list_of_questions)
+    return render_template('list_question.html', list_of_questions=list_of_questions_with_data)
+
+
+@app.route("/list-sorted", methods=['GET'])
+def list_questions_sorted():
+    list_of_questions = sql_data_manager.select_question_by(request.args['select'])
     list_of_questions_with_data = data_manager.convert_to_data(list_of_questions)
     return render_template('list_question.html', list_of_questions=list_of_questions_with_data)
 

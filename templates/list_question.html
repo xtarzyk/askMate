@@ -16,16 +16,19 @@
         <div class="question_from">
             <h1> Your question list! </h1>
         <div class="select_list">
-         <label for="cars">Select by:</label>
-            <select name="select" id="option_of_select">
-              <option value="title" name = "select-title">Title</option>
-              <option value="oldest" name = "select-oldest">Oldest</option>
-                <option value="latest" name="select-latest">Latest</option>
-              <option value="views: asc" name="select-views-asc">Views: Asc</option>
-                <option value="views: desc" name="select-views-desc">Views: Desc</option>
-              <option value="votes: asc" name="select-votes-asc">Votes: Asc</option>
-                <option value="votes: desc" name="select-votes-de">Votes: Desc</option>
-            </select>
+            <form action="/list-sorted" method="get">
+                <label for="cars">Sort by:</label>
+                <select name="select" id="option_of_select">
+                    <option value="title" name = "select-title">Title</option>
+                    <option value="oldest" name = "select-oldest">Oldest</option>
+                    <option value="latest" name="select-latest">Latest</option>
+                    <option value="views: asc" name="select-views-asc">Views: Asc</option>
+                    <option value="views: desc" name="select-views-desc">Views: Desc</option>
+                    <option value="votes: asc" name="select-votes-asc">Votes: Asc</option>
+                    <option value="votes: desc" name="select-votes-de">Votes: Desc</option>
+                </select>
+                <button type="submit" id="save-button">Apply!</button>
+            </form>
         </div>
             {% for question in list_of_questions %}
                 <div class="question">
