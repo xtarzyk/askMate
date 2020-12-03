@@ -120,5 +120,19 @@ h1 {
 
 .select_list{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-flow: row;
+    margin-left: -12.1em;
+    margin-bottom: -3.3em;
+}
+
+#save-button{
+    width: 40.2%;
+    background-color: #005022;
+    color: white;
+    font-size: 1.4em;
+    border-radius: 0.4em;
+    margin: 1.3em 2.2em;
+    font-family: Apple Chancery, cursive;
+    padding: 0.2em;
 }
