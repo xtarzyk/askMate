@@ -34,6 +34,18 @@
                         <div class="question-date">
                         {{ time }}
                         </div>
+                        <div class = "delete-and-edit">
+                            <form action="/question/{{ question_ide }}/edit" method="post">
+                            <div class="edit">
+                                <button type="submit" id="edit-button">Edit question</button>
+                            </div>
+                            </form>
+                            <form action="/question/{{ question_ide }}/delete" method="post">
+                            <div class="delete">
+                                <button type="submit" id="delete-button">Delete question</button>
+                            </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
         </div>
