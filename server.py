@@ -27,7 +27,7 @@ def main_page():
     return render_template('main_page.html', list_of_questions=list_of_questions_with_data)
 
 
-@app.route("/add-question", methods=['POST'])
+@app.route("/add-question", methods=['POST', 'GET'])
 def add_question():
     if request.method == 'POST':
         id_question = sql_data_manager.get_max_id()
@@ -72,6 +72,19 @@ def list_questions_sorted():
 def delete_question(question_id):
     sql_data_manager.delete_question_by_id(question_id)
     return redirect('/list')
+
+
+@app.route("/question/<question_id>/edit", methods=['POST', 'GET'])
+def edit_question(question_id):
+    if request.method != 'GET':
+        question_ide = question_id
+        question = sql_data_manager.get_question_by_id(question_ide)
+        title = question[3]
+        message = question[1]
+        return render_template('edit_question.html', title=title, message=message, question_id=question_ide)
+    else:
+        sql_data_manager.update_question(question_id, request.form['title'], request.form['message'])
+        return redirect('/list')
 
 
 @app.route("/upload-image", methods=["GET", "POST"])

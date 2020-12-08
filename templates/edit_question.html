@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/edit_question.css') }}">
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="content-wrapper">
+<div class="content">
+    <div class="main_menu">
+        <a href="/"><span style="color: white"> Main Page</span></a>
+    <a href="/list"><span style="color: white">Question's list</span></a>
+    </div>
+    <div class="question_from">
+    <h1> Your Question </h1>
+            <form action="/question/{{ question_id }}/edit" method="get">
+                <label for="question-input">Title:</label>
+                <textarea id="question-input" name="title" rows="2" cols="60" style="background-color: white">{{ title }}</textarea>
+
+                <label for="note-input">Your question:</label>
+                <textarea id="note-input" name="message" rows="4" cols="60">{{ message }}</textarea>
+
+                <label class="custom-file-label" for="image">Select image...</label>
+                <input type="file" class="custom-file-input" name="image" id="image">
+
+                <button type="submit" id="upload-button" class="btn btn-primary">Upload</button>
+                <button type="submit" id="change-button">Save Changes!</button>
+            </form>
+            </div>
+    </div>
+</div>
+</body>
+</html>
