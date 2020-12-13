@@ -17,12 +17,11 @@ CREATE TABLE questions
 
 CREATE TABLE answers
 (
-    answer_id       int PRIMARY KEY,
-    submission_time timestamp without time zone NOT NULL,
-    vote_number     integer NOT NULL,
-    question_id     integer NOT NULL,
-    message         character varying NOT NULL,
-    image bytea,
+    question_id                 integer NOT NULL,
+    comment_message             character varying NOT NULL,
+    comment_submission_time     integer NOT NULL,
+    comment_vote_number         integer NOT NULL,
+    answer_id                   int PRIMARY KEY,
     CONSTRAINT fk_questions
         FOREIGN  KEY (question_id)
             REFERENCES questions (question_id)

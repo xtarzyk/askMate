@@ -98,7 +98,7 @@ h1 {
 .right-column {
     justify-content: space-between;
     display: flex;
-    align-items: flex-end ;
+    align-items: flex-start ;
     flex-direction: column;
 }
 
@@ -127,47 +127,32 @@ h1 {
     font-family: Apple Chancery, cursive;
 }
 
-#edit-button{
-    width: 62.5%;
+#add-comment-button {
+    width: 41.3%;
     background-color: #005022;
     color: white;
     font-size: 1.1em;
     border-radius: 0.4em;
-    margin: 0.5em 2.2em;
+    margin: 0.6em 13.3em;
     font-family: Apple Chancery, cursive;
 }
 
-#edit-comment-button{
-    width: 62.5%;
-    background-color: #005022;
-    color: white;
-    font-size: 1.1em;
-    border-radius: 0.4em;
-    margin: 0.5em 2.2em;
-    font-family: Apple Chancery, cursive;
-}
-
-#delete-comment-button{
-    width: 64%;
-    background-color: #005022;
-    color: white;
-    font-size: 1.1em;
-    border-radius: 0.4em;
-    margin: 0.5em 2.2em;
-    font-family: Apple Chancery, cursive;
-}
-
-.comment{
+.comment {
     background-image: url('../image/question_back.png');
     background-position: right;
     background-repeat: no-repeat;
     background-size: 100%;
     margin: 2.4em 0;
-    width: 25.0em;
+    width: 25em;
     border-radius: 0.4em;
     padding: 0.7em;
     color: black;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     justify-content: space-between;
+}
+
+textarea {
+    resize: none;
+    font-size: 1.8em;
 }

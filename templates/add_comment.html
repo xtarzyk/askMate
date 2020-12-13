@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/add_comment.css') }}">
+    <meta charset="UTF-8">
+    <title>New comment</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="content-wrapper">
+<div class="content">
+    <div class="main_menu">
+        <a href="/"><span style="color: white"> Main Page</span></a>
+    <a href="/list"><span style="color: white">Question's list</span></a>
+    </div>
+    <div class="question_from">
+            <h1> {{ title }}</h1>
+                <div class="question">
+                    <div class="left-column">
+                        <div class="question-message">
+                            {{ message }}
+                        </div>
+                        <div class="vote-and-view">
+                            <div class="question-view-number">
+                            View: {{ view }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="question-date">
+                        {{ time }}
+                        </div>
+                    </div>
+                </div>
+        </div>
+    <div class="comment">
+        <form action="/question/{{ question_id }}/new-comment" method="post">
+            <label for="note-input">Comment:</label>
+            <textarea id="note-input" name="comment" rows="4" cols="60"></textarea>
+            <button type="submit" id="add-comment-button">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

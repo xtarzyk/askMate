@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, request, abort
 import data_manager
-from util import get_question_by_id, get_answers_by_question_id, id_maker
+from util import id_maker
 from datetime import datetime
-from data_manager import read_csv_file, csv_columns, write_csv_file, convert_to_data
 from collections import OrderedDict
 from operator import getitem
 import sql_data_manager
@@ -49,9 +48,12 @@ def display_question(question_id):
     message = question[1]
     time_of_question = data_manager.convert_to_data(question[2])
     vote = question[5]
-    view = question[4]
+    view = sql_data_manager.increment_view(question_ide)
+    comment_list = sql_data_manager.get_comment_by_question_id(question_ide)
+    comment_list_with_data = data_manager.convert_to_data(comment_list)
+    print(comment_list_with_data)
     return render_template('question_side.html', title=title, message=message, time=time_of_question, vote=vote,
-                           view=view, question_ide=question_ide )
+                           view=view, question_ide=question_ide, comment_list=comment_list_with_data)
 
 
 @app.route("/list")
@@ -76,7 +78,7 @@ def delete_question(question_id):
 
 @app.route("/question/<question_id>/edit", methods=['POST', 'GET'])
 def edit_question(question_id):
-    if request.method != 'GET':
+    if request.method == 'GET':
         question_ide = question_id
         question = sql_data_manager.get_question_by_id(question_ide)
         title = question[3]
@@ -85,6 +87,45 @@ def edit_question(question_id):
     else:
         sql_data_manager.update_question(question_id, request.form['title'], request.form['message'])
         return redirect('/list')
+
+
+@app.route("/question/<question_id>/new-comment", methods=["GET", "POST"])
+def add_comment(question_id):
+    question_ide = question_id
+    question = sql_data_manager.get_question_by_id(question_id)
+    title = question[3]
+    message = question[1]
+    time_of_question = data_manager.convert_to_data(question[2])
+    view = question[4]
+
+    if request.method == 'POST':
+        comment_id = question_id
+        comment_message = request.form['comment']
+        vote = 0
+        time_of_add_comment = time.time()
+        answer_id = sql_data_manager.get_max_comment_id()
+        sql_data_manager.add_comment(comment_id, comment_message, time_of_add_comment, vote, answer_id)
+        return redirect(f'/question/{question_id}')
+    return render_template('add_comment.html', title=title, message=message, time=time_of_question, view=view,
+                           question_id=question_ide)
+
+
+@app.route("/answer/<answer_id>/edit", methods=["GET", "POST"])
+def edit_answer(answer_id):
+    if request.method == 'GET':
+        answer_ide = answer_id
+        answer = sql_data_manager.get_comment_by_id(answer_ide)
+        message = answer[1]
+        return render_template('edit_comment.html', message=message, answer_id=answer_ide)
+    else:
+        sql_data_manager.update_comment(answer_id, request.form['message'])
+        question_id = sql_data_manager.get_question_by_comment_id(answer_id)
+        return redirect(f'/question/{question_id}')
+
+
+@app.route("/answer/<answer_id>/delete", methods=["GET", "POST"])
+def delete_plz(answer_id):
+    pass
 
 
 @app.route("/upload-image", methods=["GET", "POST"])

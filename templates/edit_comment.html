@@ -15,11 +15,9 @@
     </div>
     <div class="question_from">
     <h1> Your Question </h1>
-            <form action="/question/{{ question_id }}/edit" method="post">
-                <label for="question-input">Title:</label>
-                <textarea id="question-input" name="title" rows="2" cols="60" style="background-color: white">{{ title }}</textarea>
+            <form action="/answer/{{ answer_id }}/edit" method="post">
 
-                <label for="note-input">Your question:</label>
+                <label for="note-input">Your comment:</label>
                 <textarea id="note-input" name="message" rows="4" cols="60">{{ message }}</textarea>
 
                 <label class="custom-file-label" for="image">Select image...</label>
