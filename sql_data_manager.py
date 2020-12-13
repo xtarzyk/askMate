@@ -269,5 +269,24 @@ def get_question_by_comment_id(cursor: RealDictCursor, id_number: str):
     """
     cursor.execute(query, {'answer_id': id_number})
     query_result = cursor.fetchall()
+    print(query_result)
     ide = [*query_result[0].values()][0]
     return ide
+
+
+@database_common.connection_handler
+def delete_comment_by_comment_id(cursor: RealDictCursor, comment_id: str):
+    query = """
+    DELETE FROM answers
+    WHERE answer_id = %(answer_id)s 
+    """
+    cursor.execute(query, {'answer_id': comment_id})
+
+
+@database_common.connection_handler
+def delete_comment_by_question_id(cursor: RealDictCursor, question_id: str):
+    query = """
+    DELETE FROM answers
+    WHERE question_id = %(question_id)s
+    """
+    cursor.execute(query, {'question_id': question_id})

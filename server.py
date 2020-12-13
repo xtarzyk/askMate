@@ -51,7 +51,6 @@ def display_question(question_id):
     view = sql_data_manager.increment_view(question_ide)
     comment_list = sql_data_manager.get_comment_by_question_id(question_ide)
     comment_list_with_data = data_manager.convert_to_data(comment_list)
-    print(comment_list_with_data)
     return render_template('question_side.html', title=title, message=message, time=time_of_question, vote=vote,
                            view=view, question_ide=question_ide, comment_list=comment_list_with_data)
 
@@ -72,6 +71,7 @@ def list_questions_sorted():
 
 @app.route("/question/<question_id>/delete", methods=['POST'])
 def delete_question(question_id):
+    sql_data_manager.delete_comment_by_question_id(question_id)
     sql_data_manager.delete_question_by_id(question_id)
     return redirect('/list')
 
@@ -123,9 +123,11 @@ def edit_answer(answer_id):
         return redirect(f'/question/{question_id}')
 
 
-@app.route("/answer/<answer_id>/delete", methods=["GET", "POST"])
-def delete_plz(answer_id):
-    pass
+@app.route("/answer/<answer_id>/delete", methods=["POST"])
+def delete_answer(answer_id):
+    question_id = sql_data_manager.get_question_by_comment_id(answer_id)
+    sql_data_manager.delete_comment_by_comment_id(answer_id)
+    return redirect(f'/question/{question_id}')
 
 
 @app.route("/upload-image", methods=["GET", "POST"])
