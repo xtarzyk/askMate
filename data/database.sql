@@ -27,6 +27,7 @@ CREATE TABLE answers
             REFERENCES questions (question_id)
 );
 
+
     INSERT INTO questions
     VALUES (1, 'Chcę na święta upiec dobry piernik dla 5 osób. Czy ktoś z Was ma jakiś ciekawy przepis dla początkującego kucharza?Pater noster, qui es in caelis, sanctificetur nomen tuum, adveniat regnum tuum, fiat voluntas tua sicut in caelo et in terra.
 Panem nostrum quotidianum da nobis hodie;

@@ -35,7 +35,24 @@
                 </div>
         </div>
     <div class="comment">
-        <form action="/question/{{ question_id }}/new-comment" method="post">
+        <div class="left-column">
+            <div class="question-message">
+                {{ comment_message }}
+            </div>
+            <div class="vote-and-view">
+                <div class="question-vote-number">
+                    Vote: {{ comment_vote }}
+                </div>
+            </div>
+        </div>
+        <div class="comment-right-column">
+            <div class="question-date">
+            {{ time_of_comment }}
+            </div>
+        </div>
+    </div>
+    <div class="comment-to-comment">
+        <form action="/answer/{{ answer_ide }}/new-comment" method="post">
             <label for="note-input">Comment:</label>
             <textarea id="note-input" name="comment" rows="4" cols="60"></textarea>
             <button type="submit" id="add-comment-button">Add</button>

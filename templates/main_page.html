@@ -12,9 +12,12 @@
         <div class="main_menu">
             <a href="/add-question"><span style="color: white"> Add question</span></a>
             <a href="/list"><span style="color: white">Question's list</span></a>
+            <a href="/registration"><span style="color: white">Register</span></a>
+            <a href="/login"><span style="color: white">Sign in</span></a>
         </div>
         <div class="question_from">
             <h1> Hello Christmas Baker! </h1>
+            <h3>Christmas is a time when various cakes and other sweets are often baked. <br> However, not everyone is a baking master. Ask Mate comes to your aid.</h3>
             {% for question in list_of_questions %}
                 <div class="question">
                     <div class="left-column">
@@ -34,9 +37,6 @@
                         </div>
                     </div>
                     <div class="right-column">
-                        <div class="question=image">
-                        {{ question[6] }}
-                        </div>
                         <div class="question-date">
                         {{ question[2] }}
                         </div>

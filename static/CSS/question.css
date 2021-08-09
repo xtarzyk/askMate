@@ -93,6 +93,8 @@ h1 {
 }
 .left-column {
     width: 50%;
+    display: flex;
+    flex-flow: column;
 }
 
 .right-column {
@@ -113,8 +115,9 @@ h1 {
 .vote-and-view{
     display: flex;
     flex-flow: row;
-    justify-content: space-around;
+    justify-content: end;
     margin-top: 1.2em;
+    margin-left: 1.8em;
 }
 
 #delete-button{
@@ -148,7 +151,7 @@ h1 {
 }
 
 #delete-comment-button{
-    width: 64%;
+    width: 68%;
     background-color: #005022;
     color: white;
     font-size: 1.1em;
@@ -157,7 +160,7 @@ h1 {
     font-family: Apple Chancery, cursive;
 }
 
-.comment{
+.comment {
     background-image: url('../image/first_comment.png');
     background-position: right;
     background-repeat: no-repeat;
@@ -170,4 +173,83 @@ h1 {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+}
+
+.comment-to-comment {
+    background-image: url('../image/comment_second.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 2.4em 9.9em;
+    width: 25.0em;
+    border-radius: 0.4em;
+    padding: 0.7em;
+    color: black;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin-top: -1.6em;
+}
+
+#vote-up-button{
+    width: 62.5%;
+    background-color: #005022;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 0.4em;
+    margin: -1em 1.8em;
+}
+
+.only-vote{
+    height: 4.8em;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    padding: 0.3em;
+    margin-right: -0.1em;
+
+}
+
+#vote-down-button{
+    width: 62.5%;
+    background-color: #005022;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 0.4em;
+    margin: -1em 1.8em;
+}
+
+.question-vote-number{
+    margin-top: 1.2em;
+    margin-left: 1em;
+}
+
+#comment-comment-button{
+    width: 62.5%;
+    background-color: #005022;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 0.4em;
+    margin: 0.5em 2.2em;
+    font-family: Apple Chancery, cursive;
+}
+.question-vote-number-right{
+    margin-top: 1.2em;
+    margin-left: 3em;
+}
+
+.vote-and-time{
+    display: flex;
+    flex-flow: row;
+}
+
+.only-vote-right{
+    height: 4.8em;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding: 0.3em;
+    margin-right: -7.4em;
+}
+
 }

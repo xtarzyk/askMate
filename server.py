@@ -1,19 +1,15 @@
-from flask import Flask, render_template, redirect, request, abort
-import data_manager
-from util import id_maker
-from datetime import datetime
-from collections import OrderedDict
-from operator import getitem
-import sql_data_manager
 import os
 import time
+from flask import Flask, render_template, redirect, request, session, url_for
+import data_manager
+import sql_data_manager
 
 app = Flask(__name__)
+app.secret_key = "gaba"
 DATAFILE = 'sample_data/question.csv'
 
 
 def main():
-    # Load database.sql
     # sql_data_manager.load_database()
     # Start server
     app.run()
@@ -51,6 +47,7 @@ def display_question(question_id):
     view = sql_data_manager.increment_view(question_ide)
     comment_list = sql_data_manager.get_comment_by_question_id(question_ide)
     comment_list_with_data = data_manager.convert_to_data(comment_list)
+    # comment_of_comment_list = sql_data_manager.list_of_comment_to_comment_by_comment_id(comment_list[0][4])
     return render_template('question_side.html', title=title, message=message, time=time_of_question, vote=vote,
                            view=view, question_ide=question_ide, comment_list=comment_list_with_data)
 
@@ -128,6 +125,88 @@ def delete_answer(answer_id):
     question_id = sql_data_manager.get_question_by_comment_id(answer_id)
     sql_data_manager.delete_comment_by_comment_id(answer_id)
     return redirect(f'/question/{question_id}')
+
+
+@app.route("/answer/<answer_id>/vote-up", methods=["GET", "POST"])
+def vote_up(answer_id):
+    question_id = sql_data_manager.get_question_by_comment_id(answer_id)
+    sql_data_manager.add_vote(answer_id, question_id)
+    return redirect(f'/question/{question_id}')
+
+
+@app.route("/answer/<answer_id>/vote-down", methods=["GET", "POST"])
+def vote_down(answer_id):
+    question_id = sql_data_manager.get_question_by_comment_id(answer_id)
+    sql_data_manager.delete_vote(answer_id, question_id)
+    return redirect(f'/question/{question_id}')
+
+
+@app.route("/question/<question_id>/vote-up", methods=["GET", "POST"])
+def vote_up_question(question_id):
+    sql_data_manager.add_vote_question(question_id)
+    return redirect(f'/question/{question_id}')
+
+
+@app.route("/question/<question_id>/vote-down", methods=["GET", "POST"])
+def vote_down_question(question_id):
+    sql_data_manager.delete_vote_question(question_id)
+    return redirect(f'/question/{question_id}')
+
+
+@app.route("/answer/<answer_id>/new-comment", methods=["GET", "POST"])
+def add_comment_to_comment(answer_id):
+    answer_ide = answer_id
+    question = sql_data_manager.get_all_of_question_by_comment_id(answer_ide)
+    question_id = question[0]
+    title = question[3]
+    message = question[1]
+    time_of_question = data_manager.convert_to_data(question[2])
+    view = question[4]
+    comment = sql_data_manager.get_comment_by_id(answer_ide)
+    comment_message = comment[1]
+    time_of_comment = data_manager.convert_to_data(comment [2])
+    comment_vote = comment[3]
+
+    if request.method == 'POST':
+        answer_ide = answer_id
+        comment_message = request.form['comment']
+        vote = 0
+        time_of_add_comment = time.time()
+        comment_id = sql_data_manager.get_max_comment_of_comment_id()
+        sql_data_manager.add_comment_to_comment(answer_ide, comment_id, comment_message, time_of_add_comment,vote)
+        return redirect(f'/question/{question_id}')
+    return render_template('add_comment_to_comment.html', title=title, message=message, time=time_of_question,
+                           view=view, question_id=question_id, comment_message=comment_message,
+                           comment_vote=comment_vote, time_of_comment=time_of_comment, answer_ide=answer_id)
+
+
+@app.route("/registration", methods=["GET", "POST"])
+def registration():
+    if request.method == 'POST':
+        user_name = request.form['email']
+        password = request.form['password']
+        date = time.time()
+        sql_data_manager.add_user(user_name, password, date)
+        return redirect("/")
+    return render_template('register.html')
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user = request.form["user-name"]
+        session["user"] = user
+        return redirect(url_for('user'))
+    return render_template('login.html')
+
+
+@app.route("/user")
+def user():
+    if "user" in session:
+        user_i = session["user"]
+        return {user_i}
+    else:
+        return redirect("/login")
 
 
 @app.route("/upload-image", methods=["GET", "POST"])

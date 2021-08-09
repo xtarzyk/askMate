@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='CSS/registration.css') }}">
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<div class="header"></div>
+<div class="content-wrapper">
+    <div class="content">
+        <div class="main_menu">
+            <a href="/"><span style="color: white"> Main page</span></a>
+            <a href="/add-question"><span style="color: white"> Add question</span></a>
+            <a href="/list"><span style="color: white">Question's list</span></a>
+            <a href="/registration"><span style="color: white">Register</span></a>
+        </div>
+        <div class="registration">
+            <form action="/login" method="post">
+                <label for="user-name">User name:</label>
+                <textarea id="user-name" name="user-name"></textarea>
+
+                <button type="submit" id="login-button" class="btn btn-primary">Log in</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
